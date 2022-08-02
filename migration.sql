@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS workouts;
+DROP TABLE IF EXISTS workouts ;
 
 
 
@@ -19,6 +19,7 @@ CREATE TABLE workouts (
     sets INTEGER,
     reps INTEGER,
     username TEXT REFERENCES users(username)
+    ON DELETE CASCADE
 );
 
 

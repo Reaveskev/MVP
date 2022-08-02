@@ -12,8 +12,12 @@
     <div id="logo"><img src="./Pictures/logo.png" /></div>
     <p style="background-image: url('./Pictures/gym.webp')"></p>
     <div id="buttons">
-      <button id="UserBTN" onclick="userFunction()">Users</button>
-      <button id="WorkoutBTN" onclick="workoutFunction()">Workouts</button>
+      <button id="UserBTN" onclick="userFunction();result.innerHTML = ''">
+        Users
+      </button>
+      <button id="WorkoutBTN" onclick="workoutFunction();result.innerHTML = ''">
+        Workouts
+      </button>
       <button id="ClearBTN" onclick="result.innerHTML = ''">Clear</button>
     </div>
     <!-- <div id="together"> -->
@@ -66,7 +70,16 @@
       </form>
     </div>
     <!-- <button onclick="myFunction1()">Workouts</button> -->
-    <div id="results"></div>
+    <div id="results">
+      <div id="welcome">
+        <h1>Welcome to Fitness Tracker.</h1>
+        <p>
+          Using this fitness tracker, you will be able to track your last
+          inputted workout allowing you to slowly increase difficultly. You can
+          also see other peoples workouts and compete with their lifts!
+        </p>
+      </div>
+    </div>
     <!-- </div> -->
   </body>
 </html>

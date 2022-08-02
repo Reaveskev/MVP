@@ -70,15 +70,21 @@ app.post("/api/users", (req, res) => {
 // Deletes user at by id.
 app.delete("/api/users/:id", (req, res) => {
   const id = req.params.id;
-  pool
-    .query(`DELETE FROM users WHERE username = $1 RETURNING *`, [id])
-    .then((data) => {
-      if (data.rows.length === 0) {
-        res.sendStatus(404);
+  pool.query(
+    `DELETE FROM users WHERE username = $1 RETURNING *`,
+    [id],
+    (err, result) => {
+      if (err) {
+        res.status(500);
+        res.send("Oh no!");
+      } else if (result.rows.length === 0) {
+        res.status(404);
+        res.send("Username does not exist");
       } else {
-        res.send(data.rows[0]);
+        res.send(result.rows[0]);
       }
-    });
+    }
+  );
 });
 
 // Updates a user by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
