@@ -31,29 +31,6 @@ findUserBTN.addEventListener("click", () => {
         data.forEach((element) => {
           let data = element;
           createUserDiv(data);
-          // const userDiv = document.createElement("div");
-          // userDiv.setAttribute("id", "userDiv");
-
-          // const header = document.createElement("h3");
-          // header.innerText = element.username;
-
-          // const nameSpan = document.createElement("span");
-          // const weightSpan = document.createElement("span");
-          // const sexSpan = document.createElement("span");
-          // const ageSpan = document.createElement("span");
-
-          // nameSpan.innerText = `Name: ${element.name} `;
-          // weightSpan.innerText = `Weight: ${element.weight} `;
-          // sexSpan.innerText = `Sex: ${element.sex} `;
-          // ageSpan.innerText = `Age: ${element.age} `;
-
-          // // workoutdiv.innerText = JSON.stringify(element);
-          // result.append(userDiv);
-          // userDiv.append(header);
-          // userDiv.append(nameSpan);
-          // userDiv.append(weightSpan);
-          // userDiv.append(sexSpan);
-          // userDiv.append(ageSpan);
         });
       });
   } else {
@@ -74,29 +51,7 @@ findUserBTN.addEventListener("click", () => {
           data.forEach((element) => {
             let data = element;
             createUserDiv(data);
-            // const userDiv = document.createElement("div");
-            // userDiv.setAttribute("id", "userDiv");
 
-            // const header = document.createElement("h3");
-            // header.innerText = element.username;
-
-            // const nameSpan = document.createElement("span");
-            // const weightSpan = document.createElement("span");
-            // const sexSpan = document.createElement("span");
-            // const ageSpan = document.createElement("span");
-
-            // document.createElement("span");
-            // weightSpan.innerText = `Weight: ${element.weight} `;
-            // sexSpan.innerText = `Sex: ${element.sex} `;
-            // ageSpan.innerText = `Age: ${element.age} `;
-
-            // // workoutdiv.innerText = JSON.stringify(element);
-            // result.append(userDiv);
-            // userDiv.append(header);
-            // userDiv.append(nameSpan);
-            // userDiv.append(weightSpan);
-            // userDiv.append(sexSpan);
-            // userDiv.append(ageSpan);
             resetUser();
             userid = "";
           });
@@ -133,28 +88,7 @@ delUserBTN.addEventListener("click", () => {
     } else {
       response.json().then((data) => {
         createUserDiv(data);
-        // const userDiv = document.createElement("div");
-        // userDiv.setAttribute("id", "userDiv");
 
-        // const header = document.createElement("h3");
-        // header.innerText = `Deleted: ${data.username}`;
-
-        // const nameSpan = document.createElement("span");
-        // const weightSpan = document.createElement("span");
-        // const sexSpan = document.createElement("span");
-        // const ageSpan = document.createElement("span");
-
-        // nameSpan.innerText = `Name: ${data.name} `;
-        // weightSpan.innerText = `Weight: ${data.weight} `;
-        // sexSpan.innerText = `Sex: ${data.sex} `;
-        // ageSpan.innerText = `Age: ${data.age} `;
-
-        // result.append(userDiv);
-        // userDiv.append(header);
-        // userDiv.append(nameSpan);
-        // userDiv.append(weightSpan);
-        // userDiv.append(sexSpan);
-        // userDiv.append(ageSpan);
         resetUser();
         delUser = "";
       });
@@ -228,28 +162,7 @@ newUserBTN.addEventListener("click", () => {
     } else {
       response.json().then((data) => {
         createUserDiv(data);
-        // const userDiv = document.createElement("div");
-        // userDiv.setAttribute("id", "userDiv");
 
-        // const header = document.createElement("h3");
-        // header.innerText = `New User: ${data.username}`;
-
-        // const nameSpan = document.createElement("span");
-        // const weightSpan = document.createElement("span");
-        // const sexSpan = document.createElement("span");
-        // const ageSpan = document.createElement("span");
-
-        // nameSpan.innerText = `Name: ${data.name} `;
-        // weightSpan.innerText = `Weight: ${data.weight} `;
-        // sexSpan.innerText = `Sex: ${data.sex} `;
-        // ageSpan.innerText = `Age: ${data.age} `;
-
-        // result.append(userDiv);
-        // userDiv.append(header);
-        // userDiv.append(nameSpan);
-        // userDiv.append(weightSpan);
-        // userDiv.append(sexSpan);
-        // userDiv.append(ageSpan);
         resetUser();
         username = "";
         name = "";
@@ -324,15 +237,12 @@ updateUserBTN.addEventListener("click", () => {
           if (updatedname === "") {
             updatedname = element.name;
           }
-
           if (updatedweight === "") {
             updatedweight = element.weight;
           }
-
           if (updatedsex === "") {
             updatedsex = element.sex;
           }
-
           if (updatedage === "") {
             updatedage = element.age;
           }
@@ -353,28 +263,6 @@ updateUserBTN.addEventListener("click", () => {
             .then((response) => response.json())
             .then((data) => {
               createUserDiv(data);
-              // const userDiv = document.createElement("div");
-              // userDiv.setAttribute("id", "userDiv");
-
-              // const header = document.createElement("h3");
-              // header.innerText = `Updated User: ${data.username}`;
-
-              // const nameSpan = document.createElement("span");
-              // const weightSpan = document.createElement("span");
-              // const sexSpan = document.createElement("span");
-              // const ageSpan = document.createElement("span");
-
-              // nameSpan.innerText = `Name: ${data.name} `;
-              // weightSpan.innerText = `Weight: ${data.weight} `;
-              // sexSpan.innerText = `Sex: ${data.sex} `;
-              // ageSpan.innerText = `Age: ${data.age} `;
-
-              // result.append(userDiv);
-              // userDiv.append(header);
-              // userDiv.append(nameSpan);
-              // userDiv.append(weightSpan);
-              // userDiv.append(sexSpan);
-              // userDiv.append(ageSpan);
               resetUser();
               updatedusername = "";
               updatedname = "";
@@ -409,10 +297,8 @@ findWorkoutBTN.addEventListener("click", () => {
         data.forEach((element) => {
           const workoutdiv = document.createElement("div");
           workoutdiv.setAttribute("id", "workdiv");
-
           const header = document.createElement("h3");
           header.innerText = element.name;
-
           const weightSpan = document.createElement("span");
           const setsSpan = document.createElement("span");
           const repsSpan = document.createElement("span");
@@ -426,8 +312,7 @@ findWorkoutBTN.addEventListener("click", () => {
           workoutdiv.append(setsSpan);
           workoutdiv.append(repsSpan);
 
-          //////Change to male or female
-
+          //////Add male or female
           const username = element.username;
 
           fetch(`/api/users/${username}`)
@@ -459,27 +344,6 @@ findWorkoutBTN.addEventListener("click", () => {
           data.forEach((element) => {
             let data = element;
             createWorkoutDiv(data);
-            // const workoutdiv = document.createElement("div");
-            // workoutdiv.setAttribute("id", "workdiv");
-
-            // const header = document.createElement("h3");
-            // header.innerText = element.name;
-
-            // const weightSpan = document.createElement("span");
-            // const setsSpan = document.createElement("span");
-            // const repsSpan = document.createElement("span");
-            // const workout_idSpan = document.createElement("span");
-            // weightSpan.innerText = `Weight: ${element.weight} `;
-            // setsSpan.innerText = `Sets: ${element.sets} `;
-            // repsSpan.innerText = `Reps: ${element.reps} `;
-            // workout_idSpan.innerText = `Id: ${element.workout_id} `;
-
-            // result.append(workoutdiv);
-            // workoutdiv.append(header);
-            // workoutdiv.append(weightSpan);
-            // workoutdiv.append(setsSpan);
-            // workoutdiv.append(repsSpan);
-            // workoutdiv.append(workout_idSpan);
             resetWorkout();
             workoutid = "";
           });
@@ -517,27 +381,7 @@ delWorkoutBTN.addEventListener("click", () => {
       } else {
         response.json().then((data) => {
           createWorkoutDiv(data);
-          // const workoutdiv = document.createElement("div");
-          // workoutdiv.setAttribute("id", "workdiv");
 
-          // const header = document.createElement("h3");
-          // header.innerText = data.name;
-
-          // const weightSpan = document.createElement("span");
-          // const setsSpan = document.createElement("span");
-          // const repsSpan = document.createElement("span");
-          // const workout_idSpan = document.createElement("span");
-          // weightSpan.innerText = `Weight: ${data.weight} `;
-          // setsSpan.innerText = `Sets: ${data.sets} `;
-          // repsSpan.innerText = `Reps: ${data.reps} `;
-          // workout_idSpan.innerText = `Id: ${data.workout_id} `;
-
-          // result.append(workoutdiv);
-          // workoutdiv.append(header);
-          // workoutdiv.append(weightSpan);
-          // workoutdiv.append(setsSpan);
-          // workoutdiv.append(repsSpan);
-          // workoutdiv.append(workout_idSpan);
           resetWorkout();
           delworkout = "";
         });
@@ -611,27 +455,6 @@ newWorkoutBTN.addEventListener("click", () => {
       console.log("Please fill out each input!");
     } else {
       response.json().then((data) => {
-        // const workoutdiv = document.createElement("div");
-        // workoutdiv.setAttribute("id", "workdiv");
-
-        // const header = document.createElement("h3");
-        // header.innerText = data.name;
-
-        // const weightSpan = document.createElement("span");
-        // const setsSpan = document.createElement("span");
-        // const repsSpan = document.createElement("span");
-        // const workout_idSpan = document.createElement("span");
-        // weightSpan.innerText = `Weight: ${data.weight} `;
-        // setsSpan.innerText = `Sets: ${data.sets} `;
-        // repsSpan.innerText = `Reps: ${data.reps} `;
-        // workout_idSpan.innerText = `Id: ${data.workout_id} `;
-
-        // result.append(workoutdiv);
-        // workoutdiv.append(header);
-        // workoutdiv.append(weightSpan);
-        // workoutdiv.append(setsSpan);
-        // workoutdiv.append(repsSpan);
-        // workoutdiv.append(workout_idSpan);
         createWorkoutDiv(data);
         resetWorkout();
         WOname = "";
