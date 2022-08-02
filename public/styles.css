@@ -1,0 +1,200 @@
+#user-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  float: left;
+  /* flex: 1; */
+  text-align: center;
+  border-radius: 10px;
+  border: 5px solid tan;
+  background: repeating-linear-gradient(180deg, black, transparent 495px);
+}
+
+#workout-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  float: right;
+  /* flex: 1; */
+  text-align: center;
+  border-radius: 10px;
+  border: 5px solid tan;
+  background: repeating-linear-gradient(180deg, black, transparent 310px);
+}
+
+#findUser {
+  display: flex;
+  justify-content: center;
+}
+
+#findWorkout {
+  display: flex;
+  justify-content: center;
+}
+
+em {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+#results {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  /* position: absolute;
+  left: 36.5%;
+  top: 30%; */
+}
+
+#workdiv {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 10px;
+  width: 400px;
+  height: auto;
+  margin: 10px;
+  border-radius: 10px;
+  border: 5px solid tan;
+  background: repeating-linear-gradient(180deg, black, transparent 100px);
+  color: white;
+}
+
+h3 {
+  justify-content: center;
+  text-align: center;
+}
+
+* span {
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+* input {
+  margin: 5px;
+  text-align: center;
+}
+
+#newWorkout {
+  margin: 5px;
+  text-align: center;
+}
+
+body {
+  background-image: url("./Pictures/gym.webp");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#logo {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border: 5px solid tan;
+  border-radius: 10px;
+  width: 400px;
+  margin: auto;
+  background: repeating-linear-gradient(180deg, black, transparent 210px);
+  color: white;
+}
+img {
+  border: 5px solid tan;
+  border-radius: 10px;
+}
+
+#newUser {
+  margin: 5px;
+  text-align: center;
+}
+
+#delUser {
+  margin: 5px;
+  text-align: center;
+}
+
+#delWorkout {
+  margin: 5px;
+  text-align: center;
+}
+
+#updateUser {
+  margin: 5px;
+  text-align: center;
+}
+
+#findUser {
+  margin: 5px;
+}
+
+#findWorkout {
+  margin: 5px;
+}
+
+#userDiv {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 10px;
+  width: 500px;
+  height: auto;
+  margin: 10px;
+  border: 5px solid tan;
+  background: repeating-linear-gradient(180deg, black, transparent 100px);
+  color: white;
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wokoutBTN {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+#UserBTN {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+#ClearBTN {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+#userFormDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#workoutFormDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#together {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+}

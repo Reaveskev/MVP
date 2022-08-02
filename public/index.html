@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script defer src="app.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>MVP</title>
+  </head>
+  <body>
+    <div id="logo"><img src="./Pictures/logo.png" /></div>
+    <p style="background-image: url('./Pictures/gym.webp')"></p>
+    <div id="buttons">
+      <button id="UserBTN" onclick="userFunction()">Users</button>
+      <button id="WorkoutBTN" onclick="workoutFunction()">Workouts</button>
+      <button id="ClearBTN" onclick="result.innerHTML = ''">Clear</button>
+    </div>
+    <!-- <div id="together"> -->
+    <div id="userFormDiv" style="display: none">
+      <form id="user-form">
+        <input type="text" placeholder="Username" name="getUser" />
+        <button type="submit" id="findUser">Search for User</button>
+
+        <input type="text" placeholder="Username" name="deleteUser" />
+        <button type="submit" id="delUser">Delete User</button>
+
+        <input type="text" placeholder="Username" name="createUsername" />
+        <input type="text" placeholder="Name" name="createName" />
+        <input type="text" placeholder="Weight" name="createWeight" />
+        <input type="text" placeholder="Sex" name="createSex" />
+        <input type="text" placeholder="Age" name="createAge" />
+        <button type="submit" id="newUser">Create User</button>
+
+        <input type="text" placeholder="Username" name="updateUsername" />
+        <input type="text" placeholder="Name" name="updateName" />
+        <input type="text" placeholder="Weight" name="updateWeight" />
+        <input type="text" placeholder="Sex" name="updateSex" />
+        <input type="text" placeholder="Age" name="updateAge" />
+        <button type="submit" id="updateUser">Update User</button>
+      </form>
+    </div>
+
+    <div id="workoutFormDiv" style="display: none">
+      <form id="workout-form">
+        <input type="text" placeholder="Username" name="getWorkout" />
+        <button type="submit" id="findWorkout">Search for Users Lifts</button>
+
+        <input type="text" placeholder="Workout id" name="deleteWorkout" />
+        <button type="submit" id="delWorkout">Delete Workout</button>
+
+        <input type="text" placeholder="Name" name="createWOName" />
+        <input type="text" placeholder="Weight" name="createWOWeight" />
+        <input type="text" placeholder="Sets" name="createSets" />
+        <input type="text" placeholder="Reps" name="createReps" />
+        <input type="text" placeholder="Username" name="usernameWO" />
+        <button type="submit" id="newWorkout">Add Workout</button>
+
+        <!-- <input type="text" placeholder="Workout_id" name="WOid" />
+        <input type="text" placeholder="Name" name="updateWOName" />
+        <input type="text" placeholder="Weight" name="updateWOWeight" />
+        <input type="text" placeholder="Sets" name="updateSets" />
+        <input type="text" placeholder="Reps" name="updateReps" />
+        <input type="text" placeholder="Username" name="UpdateUsernameWO" />
+        <button type="submit" id="updateWorkout">Update Workout</button> -->
+      </form>
+    </div>
+    <!-- <button onclick="myFunction1()">Workouts</button> -->
+    <div id="results"></div>
+    <!-- </div> -->
+  </body>
+</html>
