@@ -2,19 +2,20 @@ const findUserBTN = document.querySelector("#findUser");
 const result = document.querySelector("#results");
 const userIdInput = document.querySelector('[name= "getUser"]');
 
+// Function used to reset the the user-form.
 function resetUser() {
   const form = document.getElementById("user-form");
   form.reset();
 }
 
+// Function used to reset the the workout-form.
 function resetWorkout() {
   const form = document.getElementById("workout-form");
   form.reset();
 }
 
-// have event listener on "input change" for petid.
+// Have an event listener that updates the "input" for userid.
 let userid = "";
-
 userIdInput.addEventListener("change", () => {
   userid = userIdInput.value;
 });
@@ -23,13 +24,14 @@ userIdInput.addEventListener("change", () => {
 findUserBTN.addEventListener("click", () => {
   event.preventDefault();
   result.innerHTML = "";
-  console.log(userid);
+  // If userid is empty it returns all users.
   if (userid === "") {
     fetch("/api/users")
       .then((response) => response.json())
       .then((data) => {
         data.forEach((element) => {
           let data = element;
+          //Function created to create divs with the information pulled.
           createUserDiv(data);
         });
       });
@@ -37,17 +39,19 @@ findUserBTN.addEventListener("click", () => {
     fetch(`/api/users/${userid}`)
       .then((response) => response.json())
       .then((data) => {
+        //If username doesnt exist it creates an error response
         if (data.length === 0) {
           const errorDiv = document.createElement("div");
           errorDiv.setAttribute("id", "errorDiv");
           const error = document.createElement("span");
           error.innerText = `Username does not exist! 
-          Please input existing username`;
+          Please input existing username.`;
           result.append(errorDiv);
           errorDiv.append(error);
           resetUser();
           userid = "";
         } else {
+          //If username does exist it creates a div with their information.
           data.forEach((element) => {
             let data = element;
             createUserDiv(data);
@@ -63,9 +67,9 @@ findUserBTN.addEventListener("click", () => {
 //Delete User
 const delUserInput = document.querySelector('[name= "deleteUser"]');
 const delUserBTN = document.querySelector("#delUser");
-// have event listener on "input change" for petid.
-let delUser = "";
 
+// Have an event listener that updates the "input" for username.
+let delUser = "";
 delUserInput.addEventListener("change", () => {
   delUser = delUserInput.value;
 });
@@ -74,18 +78,20 @@ delUserBTN.addEventListener("click", () => {
   event.preventDefault();
   result.innerHTML = "";
   fetch(`/api/users/${delUser}`, { method: "DELETE" }).then((response) => {
+    //If username doesnt exist it creates an error response
     if (response.status === 404) {
       const errorDiv = document.createElement("div");
       errorDiv.setAttribute("id", "errorDiv");
       const error = document.createElement("span");
       error.innerText = `Username does not exist! 
-      Please input existing username`;
+      Please input existing username.`;
       result.append(errorDiv);
       errorDiv.append(error);
       console.log("User does not exist");
       resetUser();
       delUser = "";
     } else {
+      //If username does exist it creates div with their information.
       response.json().then((data) => {
         createUserDiv(data);
 
@@ -97,20 +103,21 @@ delUserBTN.addEventListener("click", () => {
 });
 
 // Create user
-
+//Gather all the inputs
 const usernameInput = document.querySelector('[name="createUsername"]');
 const nameInput = document.querySelector('[name= "createName"]');
 const weightInput = document.querySelector('[name= "createWeight"]');
 const sexInput = document.querySelector('[name= "createSex"]');
 const ageInput = document.querySelector('[name= "createAge"]');
 const newUserBTN = document.querySelector("#newUser");
-// have event listener on "input change" for petid.
+
 let username = "";
 let name = "";
 let weight = "";
 let sex = "";
 let age = "";
 
+// Have an event listener that updates the "input".
 usernameInput.addEventListener("change", () => {
   username = usernameInput.value;
 });
@@ -128,11 +135,13 @@ sexInput.addEventListener("change", () => {
 });
 
 newUserBTN.addEventListener("click", () => {
+  //Specify POST request and headers.
   const requestUser = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    // Takes our inputs and passes it into the body.
     body: JSON.stringify({
       username: username,
       name: name,
@@ -144,12 +153,13 @@ newUserBTN.addEventListener("click", () => {
   event.preventDefault();
   result.innerHTML = "";
   fetch(`/api/users/`, requestUser).then((response) => {
+    //If error it creates an error response
     if (response.status === 400) {
       const errorDiv = document.createElement("div");
       errorDiv.setAttribute("id", "errorDiv");
       const error = document.createElement("span");
       error.innerText = `Please fill out each input correctly!
-      Example Username: GetSwole  Name: John  Weight: 999lbs  Sex: Male  Age: 1`;
+      Example Username: GetSwole  Name: John  Weight: 999lbs  Sex: Male  Age: 1.`;
       result.append(errorDiv);
       errorDiv.append(error);
       resetUser();
@@ -161,8 +171,8 @@ newUserBTN.addEventListener("click", () => {
       console.log("Please fill out each input!");
     } else {
       response.json().then((data) => {
+        //Creates div with their information.
         createUserDiv(data);
-
         resetUser();
         username = "";
         name = "";
@@ -175,7 +185,7 @@ newUserBTN.addEventListener("click", () => {
 });
 
 ///////Update user
-
+//Gathers all the input
 const updateusername = document.querySelector('[name="updateUsername"]');
 const updatename = document.querySelector('[name= "updateName"]');
 const updateweight = document.querySelector('[name= "updateWeight"]');
@@ -183,13 +193,13 @@ const updatesex = document.querySelector('[name= "updateSex"]');
 const updateage = document.querySelector('[name= "updateAge"]');
 const updateUserBTN = document.querySelector("#updateUser");
 
-// have event listener on "input change".
 let updatedusername = "";
 let updatedname = "";
 let updatedweight = "";
 let updatedsex = "";
 let updatedage = "";
 
+// Have event listener to update "input change".
 updateusername.addEventListener("change", () => {
   updatedusername = updateusername.value;
 });
@@ -209,12 +219,13 @@ updatesex.addEventListener("change", () => {
 updateUserBTN.addEventListener("click", () => {
   event.preventDefault();
   result.innerHTML = "";
+  //If error it creates an error response.
   if (updatedusername === "") {
     const errorDiv = document.createElement("div");
     errorDiv.setAttribute("id", "errorDiv");
     const error = document.createElement("span");
     error.innerText = `Please fill out username and what input you would like updated!
-    Example Username: GetSwole  Weight: 998lbs`;
+    Example Username: GetSwole  Weight: 998lbs.`;
     result.append(errorDiv);
     errorDiv.append(error);
     resetUser();
@@ -225,12 +236,14 @@ updateUserBTN.addEventListener("click", () => {
     updatedage = "";
     console.log("Please fill out each input!");
   } else if (
+    // Checks to see if any of the information is left blank.
     updatedname === "" ||
     updatedweight === "" ||
     updatedsex === "" ||
     updatedage === ""
   ) {
     fetch(`/api/users/${updatedusername}`)
+      // If left blank pulls old info and reuses it.
       .then((response) => response.json())
       .then((data) => {
         data.forEach((element) => {
@@ -246,6 +259,7 @@ updateUserBTN.addEventListener("click", () => {
           if (updatedage === "") {
             updatedage = element.age;
           }
+          //Specifies PATCH request and header
           const requestUser = {
             method: "PATCH",
             headers: {
@@ -262,6 +276,7 @@ updateUserBTN.addEventListener("click", () => {
           fetch(`/api/users/${updatedusername}`, requestUser)
             .then((response) => response.json())
             .then((data) => {
+              //If username does exist it updates div with their information.
               createUserDiv(data);
               resetUser();
               updatedusername = "";
@@ -281,7 +296,6 @@ const workoutIdInput = document.querySelector('[name= "getWorkout"]');
 
 // have event listener on "input change" for Workoutid.
 let workoutid = "";
-
 workoutIdInput.addEventListener("change", () => {
   workoutid = workoutIdInput.value;
 });
@@ -291,10 +305,12 @@ findWorkoutBTN.addEventListener("click", () => {
   event.preventDefault();
   result.innerHTML = "";
   if (workoutid === "") {
+    //Checks to see if input is empty. If empty returns all stored workouts
     fetch("/api/workouts")
       .then((response) => response.json())
       .then((data) => {
         data.forEach((element) => {
+          //Creates div for all info
           const workoutdiv = document.createElement("div");
           workoutdiv.setAttribute("id", "workdiv");
           const header = document.createElement("h3");
@@ -305,16 +321,14 @@ findWorkoutBTN.addEventListener("click", () => {
           weightSpan.innerText = `Weight: ${element.weight} `;
           setsSpan.innerText = `Sets: ${element.sets} `;
           repsSpan.innerText = `Reps: ${element.reps} `;
-
           result.append(workoutdiv);
           workoutdiv.append(header);
           workoutdiv.append(weightSpan);
           workoutdiv.append(setsSpan);
           workoutdiv.append(repsSpan);
 
-          //////Add male or female
+          //////If no username inputted when displaying all workouts it distguinish if male or female
           const username = element.username;
-
           fetch(`/api/users/${username}`)
             .then((response) => response.json())
             .then((data) => {
@@ -330,18 +344,20 @@ findWorkoutBTN.addEventListener("click", () => {
     fetch(`/api/workouts/${workoutid}`)
       .then((response) => response.json())
       .then((data) => {
+        //If error it creates an error response.
         if (data.length === 0) {
           const errorDiv = document.createElement("div");
           errorDiv.setAttribute("id", "errorDiv");
           const error = document.createElement("span");
           error.innerText = `Username does not exist! 
-          Please input existing username`;
+          Please input existing username.`;
           result.append(errorDiv);
           resetWorkout();
           workoutid = "";
           errorDiv.append(error);
         } else {
           data.forEach((element) => {
+            //Creates divs for specific username.
             let data = element;
             createWorkoutDiv(data);
             resetWorkout();
@@ -355,9 +371,9 @@ findWorkoutBTN.addEventListener("click", () => {
 //Delete workout
 const delworkoutInput = document.querySelector('[name= "deleteWorkout"]');
 const delWorkoutBTN = document.querySelector("#delWorkout");
-// have event listener on "input change" for petid.
-let delworkout = "";
 
+// have event listener on "input change".
+let delworkout = "";
 delworkoutInput.addEventListener("change", () => {
   delworkout = delworkoutInput.value;
 });
@@ -367,6 +383,7 @@ delWorkoutBTN.addEventListener("click", () => {
   result.innerHTML = "";
   fetch(`/api/workouts/${delworkout}`, { method: "DELETE" }).then(
     (response) => {
+      //If error it creates an error response.
       if (response.status === 404) {
         const errorDiv = document.createElement("div");
         errorDiv.setAttribute("id", "errorDiv");
@@ -380,8 +397,8 @@ delWorkoutBTN.addEventListener("click", () => {
         console.log("Please input valid Workout_id!");
       } else {
         response.json().then((data) => {
+          //Creates div of workout.
           createWorkoutDiv(data);
-
           resetWorkout();
           delworkout = "";
         });
@@ -398,13 +415,12 @@ const setdInput = document.querySelector('[name= "createSets"]');
 const repsInput = document.querySelector('[name= "createReps"]');
 const usernameWOInput = document.querySelector('[name= "usernameWO"]');
 const newWorkoutBTN = document.querySelector("#newWorkout");
-// have event listener on "input change" for petid.
+// have event listener on "input change".
 let WOname = "";
 let WOweight = "";
 let sets = "";
 let reps = "";
 let WOusername = "";
-
 workoutInput.addEventListener("change", () => {
   WOname = workoutInput.value;
 });
@@ -422,6 +438,7 @@ usernameWOInput.addEventListener("change", () => {
 });
 
 newWorkoutBTN.addEventListener("click", () => {
+  //Specify POST
   const requestUser = {
     method: "POST",
     headers: {
@@ -438,12 +455,13 @@ newWorkoutBTN.addEventListener("click", () => {
   event.preventDefault();
   result.innerHTML = "";
   fetch(`/api/workouts/`, requestUser).then((response) => {
+    //If error it creates an error response.
     if (response.status === 400) {
       const errorDiv = document.createElement("div");
       errorDiv.setAttribute("id", "errorDiv");
       const error = document.createElement("span");
       error.innerText = `Please fill out each input correctly!
-        Example Name: Bench  Weight: 300lbs  Sets: 5  Reps: 1 Username: GetSwole`;
+        Example Name: Bench  Weight: 300lbs  Sets: 5  Reps: 1 Username: GetSwole.`;
       result.append(errorDiv);
       errorDiv.append(error);
       resetWorkout();
@@ -455,6 +473,7 @@ newWorkoutBTN.addEventListener("click", () => {
       console.log("Please fill out each input!");
     } else {
       response.json().then((data) => {
+        //Creates div for new workout.
         createWorkoutDiv(data);
         resetWorkout();
         WOname = "";
@@ -467,6 +486,7 @@ newWorkoutBTN.addEventListener("click", () => {
   });
 });
 
+//Function to create User div inorder to somewhat shorten code.
 function createUserDiv(data) {
   const userDiv = document.createElement("div");
   userDiv.setAttribute("id", "userDiv");
@@ -492,6 +512,7 @@ function createUserDiv(data) {
   userDiv.append(ageSpan);
 }
 
+//Function to create User div inorder to somewhat shorten code.
 function createWorkoutDiv(data) {
   const workoutdiv = document.createElement("div");
   workoutdiv.setAttribute("id", "workdiv");
@@ -515,7 +536,38 @@ function createWorkoutDiv(data) {
   workoutdiv.append(repsSpan);
   workoutdiv.append(workout_idSpan);
 }
+
+// Have the user input show when User clicked.(Toggle)
+function userFunction() {
+  var btn = document.getElementById("UserBTN");
+  var x = document.getElementById("userFormDiv");
+
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    btn.style.backgroundColor = "#0c1b39";
+  } else {
+    x.style.display = "none";
+    btn.style.backgroundColor = "white";
+  }
+}
+
+//Have the workout input show when workout clicked.(Toggle)
+function workoutFunction() {
+  var btn = document.getElementById("WorkoutBTN");
+  var x = document.getElementById("workoutFormDiv");
+
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    btn.style.backgroundColor = "#0c1b39";
+  } else {
+    x.style.display = "none";
+    btn.style.backgroundColor = "white";
+  }
+}
+
+// WORKING OR TRASHED
 ///////Update workout
+//*Keeps updating all workouts that belong to that user instead of one since in a forEach loop.
 
 // const updateWOname = document.querySelector('[name="updateWOName"]');
 // const updateWOweight = document.querySelector('[name= "updateWOWeight"]');
@@ -644,31 +696,3 @@ function createWorkoutDiv(data) {
 //       });
 //   }
 // });
-
-// Have the user input show when User clicked
-function userFunction() {
-  var btn = document.getElementById("UserBTN");
-  var x = document.getElementById("userFormDiv");
-
-  if (x.style.display === "none") {
-    x.style.display = "block";
-    btn.style.backgroundColor = "#0c1b39";
-  } else {
-    x.style.display = "none";
-    btn.style.backgroundColor = "white";
-  }
-}
-
-//Have the workout input show when workout clicked
-function workoutFunction() {
-  var btn = document.getElementById("WorkoutBTN");
-  var x = document.getElementById("workoutFormDiv");
-
-  if (x.style.display === "none") {
-    x.style.display = "block";
-    btn.style.backgroundColor = "#0c1b39";
-  } else {
-    x.style.display = "none";
-    btn.style.backgroundColor = "white";
-  }
-}

@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 
 // Goes through .env files and sets port and database.
 dotenv.config();
-
 const app = express();
 
 // Destructuring
@@ -67,7 +66,7 @@ app.post("/api/users", (req, res) => {
   }
 });
 
-// Deletes user at by id.
+// Deletes user at by username.
 app.delete("/api/users/:id", (req, res) => {
   const id = req.params.id;
   pool.query(
@@ -87,7 +86,7 @@ app.delete("/api/users/:id", (req, res) => {
   );
 });
 
-// Updates a user by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
+// Updates a user by username. Checks to see if username is valid and checks to ensure they are updating atleast one thing.
 app.patch("/api/users/:id", (req, res) => {
   const id = req.params.id;
   console.log(id);
@@ -139,7 +138,7 @@ app.patch("/api/users/:id", (req, res) => {
 });
 
 ///////////////////////////////
-///////////WORKOUTs////////////
+///////////WORKOUTS////////////
 ///////////////////////////////
 // Find all workouts
 app.get("/api/workouts", (req, res) => {
@@ -148,7 +147,7 @@ app.get("/api/workouts", (req, res) => {
   });
 });
 
-// Find workouts by id
+// Find workouts by username
 app.get("/api/workouts/:id", (req, res) => {
   const id = req.params.id;
   pool
@@ -163,7 +162,7 @@ app.get("/api/workouts/:id", (req, res) => {
     });
 });
 
-//Add new workout. Must have name, weight, sets, reps, and user_id. Age has to be a number.
+//Add new workout. Must have name, weight, sets, reps, and username. Age has to be a number.
 app.post("/api/workouts", (req, res) => {
   const { name, weight, sets, reps, username } = req.body;
   if (
@@ -205,59 +204,62 @@ app.delete("/api/workouts/:id", (req, res) => {
     });
 });
 
-// Updates a workout by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
-app.patch("/api/workouts/:id", (req, res) => {
-  const id = req.params.id;
-  const { name, weight, sets, reps, username } = req.body;
-  // if (Number.isNaN(id)) {
-  //   res.status(400).send(`Invalid id given :"${req.params.id}"`);
-  // }
-  if (name) {
-    if (typeof name !== "string") {
-      res.sendStatus(400);
-      res.send("Bad Request");
-    }
-  }
-  if (weight) {
-    if (typeof weight !== "string") {
-      res.sendStatus(400);
-      res.send("Bad Request");
-    }
-  }
-  if (sets) {
-    if (typeof sets !== "number") {
-      res.sendStatus(400);
-      res.send("Bad Request");
-    }
-  }
-  if (reps) {
-    if (typeof reps !== "number") {
-      res.sendStatus(400);
-      res.send("Bad Request");
-    }
-  }
-  if (username) {
-    if (typeof user_id !== "string") {
-      res.sendStatus(400);
-      res.send("Bad Request");
-    }
-  }
-  pool
-    .query(
-      `UPDATE workouts SET name = COALESCE($1, name), weight = COALESCE($2, weight), sets = COALESCE($3, sets), reps = COALESCE($4, reps) WHERE username = $5 RETURNING *`,
-      [name, weight, sets, reps, id]
-    )
-    .then((result) => {
-      if (result.rows.length === 0) {
-        res.sendStatus(404);
-      } else {
-        res.send(result.rows[0]);
-        console.log("Workout updated!");
-      }
-    });
-});
-
 // Adds console log to show that the port is running.
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
+
+//WORKING OR TRASHED
+//*This worked, problem on app.js.
+
+// Updates a workout by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
+// app.patch("/api/workouts/:id", (req, res) => {
+//   const id = req.params.id;
+//   const { name, weight, sets, reps, username } = req.body;
+//   // if (Number.isNaN(id)) {
+//   //   res.status(400).send(`Invalid id given :"${req.params.id}"`);
+//   // }
+//   if (name) {
+//     if (typeof name !== "string") {
+//       res.sendStatus(400);
+//       res.send("Bad Request");
+//     }
+//   }
+//   if (weight) {
+//     if (typeof weight !== "string") {
+//       res.sendStatus(400);
+//       res.send("Bad Request");
+//     }
+//   }
+//   if (sets) {
+//     if (typeof sets !== "number") {
+//       res.sendStatus(400);
+//       res.send("Bad Request");
+//     }
+//   }
+//   if (reps) {
+//     if (typeof reps !== "number") {
+//       res.sendStatus(400);
+//       res.send("Bad Request");
+//     }
+//   }
+//   if (username) {
+//     if (typeof user_id !== "string") {
+//       res.sendStatus(400);
+//       res.send("Bad Request");
+//     }
+//   }
+//   pool
+//     .query(
+//       `UPDATE workouts SET name = COALESCE($1, name), weight = COALESCE($2, weight), sets = COALESCE($3, sets), reps = COALESCE($4, reps) WHERE username = $5 RETURNING *`,
+//       [name, weight, sets, reps, id]
+//     )
+//     .then((result) => {
+//       if (result.rows.length === 0) {
+//         res.sendStatus(404);
+//       } else {
+//         res.send(result.rows[0]);
+//         console.log("Workout updated!");
+//       }
+//     });
+// });
