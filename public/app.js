@@ -94,7 +94,6 @@ delUserBTN.addEventListener("click", () => {
       //If username does exist it creates div with their information.
       response.json().then((data) => {
         createUserDiv(data);
-
         resetUser();
         delUser = "";
       });
@@ -408,7 +407,6 @@ delWorkoutBTN.addEventListener("click", () => {
 });
 
 // Create workout
-
 const workoutInput = document.querySelector('[name="createWOName"]');
 const WOweightInput = document.querySelector('[name= "createWOWeight"]');
 const setdInput = document.querySelector('[name= "createSets"]');
@@ -569,130 +567,139 @@ function workoutFunction() {
 ///////Update workout
 //*Keeps updating all workouts that belong to that user instead of one since in a forEach loop.
 
-// const updateWOname = document.querySelector('[name="updateWOName"]');
-// const updateWOweight = document.querySelector('[name= "updateWOWeight"]');
-// const updatesets = document.querySelector('[name= "updateSets"]');
-// const updatereps = document.querySelector('[name= "updateReps"]');
-// const updateWOusername = document.querySelector('[name= "UpdateUsernameWO"]');
-// const updateWOid = document.querySelector('[name= "WOid"]');
-// const updateWorkoutBTN = document.querySelector("#updateWorkout");
+const updateWOname = document.querySelector('[name="updateWOName"]');
+const updateWOweight = document.querySelector('[name= "updateWOWeight"]');
+const updatesets = document.querySelector('[name= "updateSets"]');
+const updatereps = document.querySelector('[name= "updateReps"]');
+const updateWOusername = document.querySelector('[name= "UpdateUsernameWO"]');
+const updateWOid = document.querySelector('[name= "WOid"]');
+const updateWorkoutBTN = document.querySelector("#updateWorkout");
 
-// // have event listener on "input change".
-// let updatedWOname = "";
-// let updatedWOweight = "";
-// let updatedsets = "";
-// let updatedreps = "";
-// let WOid = "";
-// let UWOusername = "";
+// have event listener on "input change".
+let updatedWOname = "";
+let updatedWOweight = "";
+let updatedsets = "";
+let updatedreps = "";
+let WOid = "";
+let UWOusername = "";
 
-// updateWOname.addEventListener("change", () => {
-//   updatedWOname = updateWOname.value;
-// });
-// updateWOweight.addEventListener("change", () => {
-//   updatedWOweight = updateWOweight.value;
-// });
-// updatesets.addEventListener("change", () => {
-//   updatedsets = Number(updatesets.value);
-// });
-// updatereps.addEventListener("change", () => {
-//   updatedreps = Number(updatereps.value);
-// });
-// updateWOid.addEventListener("change", () => {
-//   WOid = Number(updateWOid.value);
-// });
-// updateWOusername.addEventListener("change", () => {
-//   UWOusername = updateWOusername.value;
-// });
+updateWOname.addEventListener("change", () => {
+  updatedWOname = updateWOname.value;
+});
+updateWOweight.addEventListener("change", () => {
+  updatedWOweight = updateWOweight.value;
+});
+updatesets.addEventListener("change", () => {
+  updatedsets = Number(updatesets.value);
+});
+updatereps.addEventListener("change", () => {
+  updatedreps = Number(updatereps.value);
+});
+updateWOid.addEventListener("change", () => {
+  WOid = Number(updateWOid.value);
+});
+updateWOusername.addEventListener("change", () => {
+  UWOusername = updateWOusername.value;
+});
 
-// updateWorkoutBTN.addEventListener("click", () => {
-//   event.preventDefault();
-//   result.innerHTML = "";
+updateWorkoutBTN.addEventListener("click", () => {
+  event.preventDefault();
+  result.innerHTML = "";
+  if (UWOusername === "" || WOid === "") {
+    const errorDiv = document.createElement("div");
+    errorDiv.setAttribute("id", "errorDiv");
+    const error = document.createElement("span");
+    error.innerText = `Please input valid username and workout Id!`;
+    result.append(errorDiv);
+    errorDiv.append(error);
+    resetWorkout();
+    updatedWOname = "";
+    updatedWOweight = "";
+    updatedsets = "";
+    updatedreps = "";
+    WOid = "";
+    UWOusername = "";
+  }
+  if (
+    updatedWOname === "" ||
+    updatedWOweight === "" ||
+    updatedsets === "" ||
+    updatedreps === ""
+  ) {
+    fetch(`/api/workouts/${UWOusername}`).then((response) => {
+      if (response.status === 400) {
+        const errorDiv = document.createElement("div");
+        errorDiv.setAttribute("id", "errorDiv");
+        const error = document.createElement("span");
+        error.innerText = `Error 2`;
+        result.append(errorDiv);
+        errorDiv.append(error);
+        resetWorkout();
+        updatedWOname = "";
+        updatedWOweight = "";
+        updatedsets = "";
+        updatedreps = "";
+        WOid = "";
+        UWOusername = "";
+      } else {
+        response.json().then((data) => {
+          const old = {
+            name: updatedWOname,
+            weight: updatedWOweight,
+            sets: updatedsets,
+            reps: updatedreps,
+            username: UWOusername,
+            workout_id: WOid,
+          };
+          for (const element of data) {
+            if (WOid !== element.workout_id) {
+              continue;
+            }
+            {
+              if (old.name === "") {
+                old.name = element.name;
+              }
 
-//   if (
-//     updatedWOname === "" ||
-//     updatedWOweight === "" ||
-//     updatedsets === "" ||
-//     updatedreps === ""
-//   ) {
-//     fetch(`/api/workouts/${UWOusername}`)
-//       .then((response) => response.json())
-//       .then((data) => {
-//         // data.forEach((element) => {
-//         console.log(data);
-//         if (updatedWOname === "") {
-//           updatedWOname = data[i].name;
-//           console.log(updatedWOname);
-//         }
+              if (old.weight === "") {
+                old.weight = element.weight;
+              }
 
-//         if (updatedWOweight === "") {
-//           updatedWOweight = data[i].weight;
-//         }
+              if (old.sets === "") {
+                old.sets = element.sets;
+              }
 
-//         if (updatedsets === "") {
-//           updatedsets = data[i].sets;
-//         }
+              if (old.reps === "") {
+                old.reps = element.reps;
+              }
 
-//         if (updatedreps === "") {
-//           updatedreps = data[i].reps;
-//         }
-
-//         // if (WOid === element.workout_id) {
-
-//         // if (updatedWOname === "") {
-//         //   updatedWOname = element.name;
-//         //   console.log(element.name);
-//         // }
-
-//         // if (updatedWOweight === "") {
-//         //   updatedWOweight = element.weight;
-//         // }
-
-//         // if (updatedsets === "") {
-//         //   updatedsets = element.sets;
-//         // }
-
-//         // if (updatedreps === "") {
-//         //   updatedreps = element.reps;
-
-//         const requestUser = {
-//           method: "PATCH",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//           body: JSON.stringify({
-//             name: updatedWOname,
-//             weight: updatedWOweight,
-//             set: updatedsets,
-//             reps: updatedreps,
-//           }),
-//         };
-
-//         console.log("hello3");
-//         fetch(`/api/workouts/${UWOusername}`, requestUser)
-//           .then((response) => response.json())
-//           .then((data) => {
-//             const workoutdiv = document.createElement("div");
-//             workoutdiv.setAttribute("id", "workdiv");
-
-//             const header = document.createElement("h3");
-//             header.innerText = `Updated ${data.name}`;
-
-//             const weightSpan = document.createElement("span");
-//             const setsSpan = document.createElement("span");
-//             const repsSpan = document.createElement("span");
-//             const workout_idSpan = document.createElement("span");
-//             weightSpan.innerText = `Weight: ${data.weight} `;
-//             setsSpan.innerText = `Sets: ${data.sets} `;
-//             repsSpan.innerText = `Reps: ${data.reps} `;
-//             workout_idSpan.innerText = `Id: ${WOid} `;
-
-//             result.append(workoutdiv);
-//             workoutdiv.append(header);
-//             workoutdiv.append(weightSpan);
-//             workoutdiv.append(setsSpan);
-//             workoutdiv.append(repsSpan);
-//             workoutdiv.append(workout_idSpan);
-//           });
-//       });
-//   }
-// });
+              if (old.name === "") {
+                old.name = element.name;
+              }
+            }
+          }
+          console.log(old);
+          const requestUser = {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(old),
+          };
+          fetch(`/api/workouts/${WOid}`, requestUser)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              createWorkoutDiv(data);
+              resetWorkout();
+              updatedWOname = "";
+              updatedWOweight = "";
+              updatedsets = "";
+              updatedreps = "";
+              WOid = "";
+              UWOusername = "";
+            });
+        });
+      }
+    });
+  }
+});

@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS workouts ;
 
 
-
 CREATE TABLE users (
     user_id SERIAL,
     username TEXT PRIMARY KEY,

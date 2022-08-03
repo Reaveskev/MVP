@@ -213,53 +213,55 @@ app.listen(PORT, () => {
 //*This worked, problem on app.js.
 
 // Updates a workout by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
-// app.patch("/api/workouts/:id", (req, res) => {
-//   const id = req.params.id;
-//   const { name, weight, sets, reps, username } = req.body;
-//   // if (Number.isNaN(id)) {
-//   //   res.status(400).send(`Invalid id given :"${req.params.id}"`);
-//   // }
-//   if (name) {
-//     if (typeof name !== "string") {
-//       res.sendStatus(400);
-//       res.send("Bad Request");
-//     }
-//   }
-//   if (weight) {
-//     if (typeof weight !== "string") {
-//       res.sendStatus(400);
-//       res.send("Bad Request");
-//     }
-//   }
-//   if (sets) {
-//     if (typeof sets !== "number") {
-//       res.sendStatus(400);
-//       res.send("Bad Request");
-//     }
-//   }
-//   if (reps) {
-//     if (typeof reps !== "number") {
-//       res.sendStatus(400);
-//       res.send("Bad Request");
-//     }
-//   }
-//   if (username) {
-//     if (typeof user_id !== "string") {
-//       res.sendStatus(400);
-//       res.send("Bad Request");
-//     }
-//   }
-//   pool
-//     .query(
-//       `UPDATE workouts SET name = COALESCE($1, name), weight = COALESCE($2, weight), sets = COALESCE($3, sets), reps = COALESCE($4, reps) WHERE username = $5 RETURNING *`,
-//       [name, weight, sets, reps, id]
-//     )
-//     .then((result) => {
-//       if (result.rows.length === 0) {
-//         res.sendStatus(404);
-//       } else {
-//         res.send(result.rows[0]);
-//         console.log("Workout updated!");
-//       }
-//     });
-// });
+app.patch("/api/workouts/:id", (req, res) => {
+  const id = req.params.id;
+  const { name, weight, sets, reps, username, workout_id } = req.body;
+  // if (Number.isNaN(id)) {
+  //   res.status(400).send(`Invalid id given :"${req.params.id}"`);
+  // }
+  if (name) {
+    if (typeof name !== "string") {
+      res.sendStatus(400);
+      res.send("Bad Request");
+    }
+  }
+  if (weight) {
+    if (typeof weight !== "string") {
+      res.sendStatus(400);
+      res.send("Bad Request");
+    }
+  }
+  if (sets) {
+    if (typeof sets !== "number") {
+      res.sendStatus(400);
+      res.send("Bad Request");
+    }
+  }
+  if (reps) {
+    if (typeof reps !== "number") {
+      res.sendStatus(400);
+      res.send("Bad Request");
+    }
+  }
+  if (username === "") {
+    res.sendStatus(400);
+    res.send("Bad Request");
+  }
+  if (workout_id === "") {
+    res.sendStatus(400);
+    res.send("Bad Request");
+  }
+  pool
+    .query(
+      `UPDATE workouts SET name = COALESCE($1, name), weight = COALESCE($2, weight), sets = COALESCE($3, sets), reps = COALESCE($4, reps) WHERE workout_id = $5 RETURNING *`,
+      [name, weight, sets, reps, id]
+    )
+    .then((result) => {
+      if (result.rows.length === 0) {
+        res.sendStatus(404);
+      } else {
+        res.send(result.rows[0]);
+        console.log("Workout updated!");
+      }
+    });
+});
