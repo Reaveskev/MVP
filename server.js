@@ -209,9 +209,6 @@ app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
 
-//WORKING OR TRASHED
-//*This worked, problem on app.js.
-
 // Updates a workout by id. Checks to see if id is valid and checks to ensure they are updating atleast one thing.
 app.patch("/api/workouts/:id", (req, res) => {
   const id = req.params.id;
@@ -257,6 +254,7 @@ app.patch("/api/workouts/:id", (req, res) => {
       [name, weight, sets, reps, id]
     )
     .then((result) => {
+      console.log(result);
       if (result.rows.length === 0) {
         res.sendStatus(404);
       } else {

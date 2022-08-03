@@ -21,17 +21,19 @@ CREATE TABLE workouts (
     ON DELETE CASCADE
 );
 
-
-
+INSERT INTO users(username, name, weight, sex, age) VALUES ('CBum', 'Chris', '265 lbs', 'Male', 27);
 INSERT INTO users(username, name, weight, sex, age) VALUES ('Kev', 'Kevin', '210 lbs', 'Male', 25);
 INSERT INTO users(username, name, weight, sex, age) VALUES ('Kat', 'Katrina', '136 lbs', 'Female', 25);
 
 
 INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Bench', '275 lbs', 5, 3, 'Kev');
 INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Squat', '300 lbs', 5, 3, 'Kev');
+INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Deadlift', '380 lbs', 5, 3, 'Kev');
 INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Bench', '135 lbs', 5, 3, 'Kat');
 INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Squat', '225 lbs', 5, 3, 'Kat');
-INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Deadlift', '380 lbs', 5, 3, 'Kev');
 INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Deadlift', '300 lbs', 5, 3, 'Kat');
+INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Bench', '315 lbs', 4, 10, 'CBum');
+INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Squat', '415 lbs', 5, 3, 'CBum');
+INSERT INTO workouts(name, weight, sets, reps, username) VALUES ('Deadlift', '675 lbs', 5, 3, 'CBum');
 
 -- psql -f migration.sql MVP
