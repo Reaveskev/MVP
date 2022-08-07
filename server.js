@@ -140,6 +140,7 @@ app.patch("/api/users/:id", (req, res) => {
 ///////////////////////////////
 ///////////WORKOUTS////////////
 ///////////////////////////////
+
 // Find all workouts
 app.get("/api/workouts", (req, res) => {
   pool.query("SELECT * FROM workouts").then((data) => {
@@ -262,4 +263,74 @@ app.patch("/api/workouts/:id", (req, res) => {
         console.log("Workout updated!");
       }
     });
+});
+
+///////////////////
+//////LIFTS////////
+///////////////////
+
+app.get("/api/lifts/", (req, res) => {
+  pool.query("SELECT * FROM lifts").then((data) => {
+    const workout = data.rows;
+    if (workout) {
+      res.send(workout);
+    } else {
+      res.status(400).send("Lift does not exist");
+    }
+  });
+});
+
+// Find lift by name
+// app.get("/api/lifts/:id", (req, res) => {
+//   const id = req.params.id;
+//   pool.query("SELECT * FROM lifts WHERE name = $1", [id]).then((data) => {
+//     const workout = data.rows;
+//     if (workout) {
+//       res.send(workout);
+//     } else {
+//       res.status(400).send("Lift does not exist");
+//     }
+//   });
+// });
+
+app.get("/api/lifts/:id", (req, res) => {
+  const id = req.params.id;
+  pool
+    .query("SELECT * FROM lifts WHERE name LIKE $1", ["%" + id + "%"])
+    .then((data) => {
+      // const info = data.rows;
+      let workout = data.rows;
+      // info.forEach((element) => {
+      //   if (info.name === id) {
+      //     workout = info.rows;
+      //   }
+      // });
+      if (workout) {
+        res.send(workout);
+      } else {
+        res.status(400).send("Lift does not exist");
+      }
+    });
+});
+
+//Add new lift.
+app.post("/api/lifts", (req, res) => {
+  const { name, muscle_group, example, tips } = req.body;
+  if (name && muscle_group) {
+    pool
+      .query(
+        "INSERT INTO lifts(name, muscle_group, example, tips) VALUES($1, $2, $3, $4) RETURNING *;",
+        [name, muscle_group, example, tips]
+      )
+      .then((data) => {
+        res.status(200);
+        res.send(data.rows[0]);
+        console.log("New lift added!");
+      });
+  } else {
+    res.status(400);
+    res.set("Content-Type", "text/plain");
+    res.send("Bad Request");
+    console.log("Bad Request");
+  }
 });

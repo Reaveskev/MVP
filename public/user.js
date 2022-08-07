@@ -14,6 +14,11 @@ function resetWorkout() {
   form.reset();
 }
 
+function resetLift() {
+  const form = document.getElementById("lift-form");
+  form.reset();
+}
+
 // Have an event listener that updates the "input" for userid.
 let userid = "";
 userIdInput.addEventListener("change", () => {

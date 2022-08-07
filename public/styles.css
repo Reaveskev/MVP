@@ -11,6 +11,11 @@
   background: repeating-linear-gradient(180deg, black, transparent 495px);
 }
 
+#gif {
+  height: 200px;
+  width: 200px;
+}
+
 #workout-form {
   display: flex;
   /* justify-content: center; */
@@ -22,7 +27,7 @@
   /* text-align: center; */
   border-radius: 10px;
   border: 5px solid tan;
-  background: repeating-linear-gradient(180deg, black, transparent 310px);
+  background: repeating-linear-gradient(180deg, black, transparent 495px);
 }
 
 #welcome {
@@ -61,18 +66,19 @@ em {
 }
 
 #workdiv {
-  display: flex;
+  /* display: flex; */
+  display: inline-grid;
   justify-content: center;
-  /* text-align: center; */
+  text-align: center;
   align-items: center;
   padding: 10px;
-  width: 450px;
+  width: 800px;
   /* height: auto; */
   margin: 10px;
   border-radius: 10px;
   border: 5px solid tan;
   font-family: "Noto Sans JP", sans-serif;
-  background: repeating-linear-gradient(180deg, black, transparent 100px);
+  background: repeating-linear-gradient(180deg, black, transparent 610px);
   color: white;
 }
 
@@ -113,6 +119,9 @@ body {
 img {
   border: 5px solid tan;
   border-radius: 10px;
+  display: block;
+  text-align: center;
+  margin: auto;
 }
 
 #newUser {
@@ -208,6 +217,18 @@ img {
   align-items: center;
 }
 
+#lift-form {
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  float: left;
+  /* text-align: center; */
+  border-radius: 10px;
+  border: 5px solid tan;
+  background: repeating-linear-gradient(180deg, black, transparent 200px);
+}
 footer {
   background-color: #9e9e9e;
   opacity: 0.8;
@@ -226,4 +247,8 @@ p {
 
 h1 {
   font-family: "Noto Sans JP", sans-serif;
+}
+
+h3 {
+  font-weight: bold;
 }

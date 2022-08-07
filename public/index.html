@@ -20,7 +20,7 @@
         Users
       </button>
       <button id="WorkoutBTN" onclick="workoutFunction();result.innerHTML = ''">
-        Workouts
+        Recorded Workouts
       </button>
       <button id="ClearBTN" onclick="result.innerHTML = ''">Clear</button>
     </div>
@@ -69,6 +69,16 @@
         <input type="text" placeholder="Reps" name="updateReps" />
         <input type="text" placeholder="Username" name="UpdateUsernameWO" />
         <button type="submit" id="updateWorkout">Update Workout</button>
+      </form>
+      <form id="lift-form">
+        <input type="text" placeholder="Workout List" name="lifts" />
+        <button type="submit" id="findLifts">Search for Workouts</button>
+
+        <input type="text" placeholder="Name" name="liftName" />
+        <input type="text" placeholder="Muscle Group" name="muscleGroup" />
+        <input type="text" placeholder="Example" name="Example" />
+        <input type="text" placeholder="Tips" name="Tips" />
+        <button type="submit" id="createLift">Create Workout</button>
       </form>
     </div>
     <div id="results">
